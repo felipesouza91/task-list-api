@@ -39,7 +39,7 @@ class TaskListResourceTest {
     @Test
     @DisplayName("should return status code 200 with tasklist when exits")
     public void test0() throws Exception {
-        TaskList taskList = new TaskList(1L, "Task List 1", OffsetDateTime.now());
+        TaskList taskList = new TaskList(1L, "Task List 1", OffsetDateTime.now(), null);
         given(clientService.findById(1L)).willReturn(taskList);
         String formatedDate = JsonPath.parse(objectMapper.writeValueAsString(taskList.getCreatedAt())).json();
         mockMvc.perform(get(PATH + "/{id}", 1L))

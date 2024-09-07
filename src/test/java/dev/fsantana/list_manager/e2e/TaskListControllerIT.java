@@ -2,26 +2,21 @@ package dev.fsantana.list_manager.e2e;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jayway.jsonpath.JsonPath;
 import dev.fsantana.list_manager.api.dto.input.InputTaskList;
 import dev.fsantana.list_manager.domain.model.TaskList;
 import dev.fsantana.list_manager.domain.repository.TaskListRepository;
 import io.restassured.RestAssured;
 
 import io.restassured.http.ContentType;
-import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.time.ZoneId;
-import java.time.temporal.TemporalAccessor;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class TaskListControllerIT {
@@ -35,8 +30,6 @@ public class TaskListControllerIT {
         RestAssured.port = 8080;
         RestAssured.basePath = "/task-lists";
     }
-    @Autowired
-    private ObjectMapper objectMapper;
 
     @AfterEach
     public  void cleanDataBase(){

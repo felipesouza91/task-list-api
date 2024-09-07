@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "task_list")
@@ -19,6 +21,8 @@ public class TaskList {
         this.title = title;
     }
 
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
@@ -29,5 +33,9 @@ public class TaskList {
 
     @Column(name = "created_at")
     private OffsetDateTime createdAt = OffsetDateTime.now();
+
+    @OneToMany(cascade = CascadeType.REMOVE)
+    @JoinColumn(name="task_list_id")
+    private List<TaskItem> items = new ArrayList<>();
 
 }

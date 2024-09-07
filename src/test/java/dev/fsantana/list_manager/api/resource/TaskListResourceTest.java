@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;
 
+import dev.fsantana.list_manager.domain.execption.AppEntityNotFound;
 import dev.fsantana.list_manager.domain.model.TaskList;
 import dev.fsantana.list_manager.domain.service.TaskListService;
 
@@ -48,4 +49,21 @@ class TaskListResourceTest {
                 .andExpect(jsonPath("$.createdAt", is(formatedDate)));
     }
 
+    @Test
+    @DisplayName("should return status code 404 when taskList not Exits")
+    public void test1() throws Exception {
+        given(clientService.findById(1L))
+                .willThrow(new AppEntityNotFound("Lista de tarefas não existes ou não foi encontrada"));
+        mockMvc.perform(get(PATH + "/{id}", 1L))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.detail", is("Lista de tarefas não existes ou não foi encontrada")))
+                .andExpect(jsonPath("$.title", is("Recurso não encontrado")));
+
+    }
+
+    @Test
+    @DisplayName("should return 200 with a pageable list")
+    public void test2() {
+
+    }
 }

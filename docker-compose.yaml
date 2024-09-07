@@ -9,3 +9,5 @@ services:
       POSTGRES_PASSWORD: test
       POSTGRES_USER: test
       POSTGRES_DB: task-list
+      TZ: 'UTC'
+      PGTZ: 'UTC'

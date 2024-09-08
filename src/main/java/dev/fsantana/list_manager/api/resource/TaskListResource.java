@@ -39,6 +39,7 @@ public class TaskListResource {
     @GetMapping
     public ResponseEntity<Page<TaskListDTO>> findList(String title, Pageable pageable) {
 
+
         Page<TaskList> pageableList = service.findAll(title, pageable);
         List<TaskListDTO> list = pageableList.getContent().stream().map( taskList -> TaskListDTO.builder()
                 .id(taskList.getId())
